@@ -45,7 +45,7 @@ public class ClassMediationWithLoadOfPropertiesTestCase extends ESBIntegrationTe
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
         super.init();
-        loadESBConfigurationFromClasspathIfNotExists(
+        loadESBConfigurationFromClasspath(
                 "/artifacts/ESB/mediatorconfig/class/class_mediation_with_twenty_properties.xml");
     }
 
