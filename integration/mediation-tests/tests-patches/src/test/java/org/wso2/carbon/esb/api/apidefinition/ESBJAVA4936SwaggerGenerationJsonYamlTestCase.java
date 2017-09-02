@@ -52,6 +52,7 @@ public class ESBJAVA4936SwaggerGenerationJsonYamlTestCase extends ESBIntegration
                 (new File(getClass().getResource(RELATIVE_RESOURCE_PATH + JAR_FILE_NAME).toURI()));
         serverConfigurationManager.restartGracefully();
         super.init();
+        deleteApi("StockQuoteApi");
         loadESBConfigurationFromClasspath(RELATIVE_RESOURCE_PATH + "StockQuoteApi.xml");
     }
 

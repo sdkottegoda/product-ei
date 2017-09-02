@@ -402,6 +402,23 @@ public abstract class ESBIntegrationTest {
 		}
 	}
 
+    /**
+     * Deletes an api with the given name.
+     *
+     * @param api name of the api to be delete
+     * @throws Exception if an exception occurs while deleting the API or checking its existence
+     */
+    protected void deleteApi(String api) throws Exception {
+        if (esbUtils.isApiExist(contextUrls.getBackEndUrl(), sessionCookie, api)) {
+            esbUtils.deleteApi(contextUrls.getBackEndUrl(), sessionCookie, api);
+            Assert.assertTrue(esbUtils.isApiUnDeployed(contextUrls.getBackEndUrl(), sessionCookie, api),
+                    "Api: " + api + " Deletion failed or time out");
+        }
+        if (apiList != null && apiList.contains(api)) {
+            apiList.remove(api);
+        }
+    }
+
 	protected void deleteSequence(String sequenceName)
 			throws SequenceEditorException, RemoteException {
 		if (esbUtils.isSequenceExist(contextUrls.getBackEndUrl(), sessionCookie, sequenceName)) {
