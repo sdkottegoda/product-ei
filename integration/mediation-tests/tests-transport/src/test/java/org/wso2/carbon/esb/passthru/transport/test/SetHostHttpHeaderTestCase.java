@@ -40,9 +40,6 @@ public class SetHostHttpHeaderTestCase extends ESBIntegrationTest {
     @Test(groups = {"wso2.esb"}, description = "Creating Test Case tests REQUEST_HOST_HEADER property functionality. " +
             "This make sure that the header can be formatted without the port number")
     public void testSetHostHttpHeaderTestCase() throws Exception {
-        deleteProxyService("HttpHostHeaderSetProxy");
-        deleteProxyService("HttpHostHeaderTestProxy");
-        loadESBConfigurationFromClasspath("/artifacts/ESB/synapseconfig/http_transport/set_host_http_header.xml");
         OMElement response;
         response = axis2Client.sendSimpleStockQuoteRequest(getProxyServiceURLHttp("HttpHostHeaderSetProxy"),
                 getBackEndServiceUrl(ESBTestConstant.SIMPLE_STOCK_QUOTE_SERVICE), "WSO2");
@@ -57,9 +54,6 @@ public class SetHostHttpHeaderTestCase extends ESBIntegrationTest {
     @Test(groups = {"wso2.esb"}, description = "Creating Test Case tests REQUEST_HOST_HEADER property functionality. " +
             "This make sure that the header can be formatted with the port number too")
     public void testSetHostHttpHeaderWithPortTestCase() throws Exception {
-        deleteProxyService("HttpHostHeaderSetProxyWithPort");
-        deleteProxyService("HttpHostHeaderTestProxyWithPort");
-        loadESBConfigurationFromClasspath("/artifacts/ESB/synapseconfig/http_transport/set_host_http_header_with_port.xml");
         OMElement response;
         response = axis2Client.sendSimpleStockQuoteRequest(getProxyServiceURLHttp("HttpHostHeaderSetProxyWithPort")
                 , getBackEndServiceUrl(ESBTestConstant.SIMPLE_STOCK_QUOTE_SERVICE), "WSO2");

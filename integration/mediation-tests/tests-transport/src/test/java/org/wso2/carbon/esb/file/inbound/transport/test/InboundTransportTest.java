@@ -57,14 +57,6 @@ public class InboundTransportTest extends ESBIntegrationTest {
 
 
 		super.init();
-        deleteProxyService("InboundEndpointProxy");
-        deleteSequence("requestHandlerSeq");
-        deleteSequence("requestHandlerSeq2");
-		loadESBConfigurationFromClasspath(File.separator + "artifacts"
-				+ File.separator + "ESB" + File.separator + "synapseconfig"
-				+ File.separator + "inboundEndpoint" + File.separator
-				+ "inboundFile.xml");
-
 		logViewerClient = new LogViewerClient(contextUrls.getBackEndUrl(),
 				getSessionCookie());
 
