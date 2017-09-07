@@ -41,7 +41,7 @@ public class SmooksMediatorXMLtoXMLTransformTestCase extends ESBIntegrationTest 
 //    @BeforeClass(alwaysRun = true)
     public void init() throws Exception {
         super.init();
-        loadESBConfigurationFromClasspathIfNotExists("/artifacts/ESB/synapseconfig/vfsTransport/vfs_xml_to_xml.xml");
+        loadESBConfigurationFromClasspath("/artifacts/ESB/synapseconfig/vfsTransport/vfs_xml_to_xml.xml");
         resourceAdminServiceStub = new ResourceAdminServiceClient(contextUrls.getBackEndUrl(), context.getContextTenant().getContextUser().getUserName()
 , context.getContextTenant().getContextUser().getPassword());
         setSmooksSampleConfigFileLocations();

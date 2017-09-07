@@ -38,7 +38,7 @@ public class ESBJAVA3291TestCase extends ESBIntegrationTest {
 		super.init();
 		clearUploadedResource();
 		uploadResourcesToConfigRegistry();
-		loadESBConfigurationFromClasspathIfNotExists(SPRING_XML_LOCATION + File.separator + "spring_mediation_error.xml");
+		loadESBConfigurationFromClasspath(SPRING_XML_LOCATION + File.separator + "spring_mediation_error.xml");
 		logViewerClient = new LogViewerClient(contextUrls.getBackEndUrl(), getSessionCookie());
 
 	}
