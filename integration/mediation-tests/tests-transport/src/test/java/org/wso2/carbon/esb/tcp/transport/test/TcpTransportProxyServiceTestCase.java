@@ -40,9 +40,6 @@ public class TcpTransportProxyServiceTestCase extends ESBIntegrationTest {
         super.init();
         //parsing the super admin context to restart the server
         serverConfigurationManager = new ServerConfigurationManager(new AutomationContext("ESB", TestUserMode.SUPER_TENANT_ADMIN));
-        serverConfigurationManager.applyConfiguration(new File(getESBResourceLocation() + File.separator
-                                                               + "tcp" + File.separator + "transport" + File.separator + "axis2.xml"));
-        super.init();
         loadESBConfigurationFromClasspath("/artifacts/ESB/tcp/transport/tcpProxy.xml");
 
     }
@@ -66,6 +63,5 @@ public class TcpTransportProxyServiceTestCase extends ESBIntegrationTest {
     @AfterClass(alwaysRun = true)
     public void destroy() throws Exception {
         super.cleanup();
-        serverConfigurationManager.restoreToLastConfiguration();
     }
 }

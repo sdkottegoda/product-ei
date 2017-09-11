@@ -46,6 +46,7 @@ import java.nio.file.StandardCopyOption;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class can be used to replace configuration files at carbon server
@@ -62,6 +63,7 @@ public class ServerConfigurationManager {
     private String sessionCookie;
     private LoginLogoutClient loginLogoutClient;
     private List<ConfigData> configDatas = new ArrayList<ConfigData>();
+    private static String httpHandler = "passthrough";
 
     /**
      * Create a ServerConfigurationManager
@@ -296,6 +298,49 @@ public class ServerConfigurationManager {
             }
         }
         restartGracefully();
+    }
+
+    /**
+     * apply configuration file and restart server to take effect the configuration
+     *
+     * @param newConfig configuration file
+     * @throws AutomationUtilException - throws if apply configuration fails
+     * @throws IOException             - throws if apply configuration fails
+     */
+    public void applyConfiguration(File newConfig, String handler) throws AutomationUtilException, IOException {
+
+        if (!httpHandler.equals(handler)) {
+            httpHandler = handler;
+            //to backup existing configuration
+            backupConfiguration(newConfig.getName());
+            InputStreamReader in = new InputStreamReader(new FileInputStream(newConfig), StandardCharsets.UTF_8);
+            OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(originalConfig),
+                                                            StandardCharsets.UTF_8);
+
+            try {
+                int c;
+                while ((c = in.read()) != -1) {
+                    out.write(c);
+                }
+            } finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        //ignore
+                    }
+
+                }
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (IOException e) {
+                        //ignore
+                    }
+                }
+            }
+            restartGracefully();
+        }
     }
 
     /**

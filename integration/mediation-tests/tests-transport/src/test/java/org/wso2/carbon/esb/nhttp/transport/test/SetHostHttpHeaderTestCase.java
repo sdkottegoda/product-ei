@@ -24,6 +24,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.wso2.carbon.automation.engine.context.AutomationContext;
 import org.wso2.carbon.automation.engine.context.TestUserMode;
+import org.wso2.carbon.esb.nhttp.transport.test.util.ESBNhttpIntegrationTest;
 import org.wso2.esb.integration.common.utils.common.ServerConfigurationManager;
 import org.wso2.esb.integration.common.utils.ESBIntegrationTest;
 import org.wso2.esb.integration.common.utils.ESBTestConstant;
@@ -36,17 +37,14 @@ import static org.testng.Assert.assertTrue;
  * This is an patch automation test .This tests whether the host http header for outgoing messages can
  * be set both with port or without port.
  */
-public class SetHostHttpHeaderTestCase extends ESBIntegrationTest {
+public class SetHostHttpHeaderTestCase extends ESBNhttpIntegrationTest {
     private ServerConfigurationManager serverConfigurationManager;
 
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
         super.init();
-        AutomationContext autoCtx = new AutomationContext("ESB", TestUserMode.SUPER_TENANT_ADMIN);
-        serverConfigurationManager = new ServerConfigurationManager(autoCtx);
-        serverConfigurationManager.applyConfiguration(
+        applyConfiguration(
                 new File(getClass().getResource("/artifacts/ESB/nhttp/transport/axis2.xml").getPath()));
-        super.init();
     }
 
     @Test(groups = {"wso2.esb"}, description = "Creating Test Case tests REQUEST_HOST_HEADER property functionality. " +
@@ -75,12 +73,7 @@ public class SetHostHttpHeaderTestCase extends ESBIntegrationTest {
 
     @AfterClass(alwaysRun = true)
     public void close() throws Exception {
-        try {
-            super.cleanup();
-        } finally {
-            serverConfigurationManager.restoreToLastConfiguration(true);
-            serverConfigurationManager = null;
-        }
+        super.cleanup();
     }
 }
 

@@ -34,24 +34,14 @@ import java.io.File;
  */
 public class MailToTransportBaseClass extends ESBIntegrationTest {
 
-    private ServerConfigurationManager serverConfigurationManager;
-
     @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
         super.init(TestUserMode.SUPER_TENANT_ADMIN);
-        serverConfigurationManager = new ServerConfigurationManager(context);
-        serverConfigurationManager.applyConfiguration(
-                new File(TestConfigurationProvider.getResourceLocation() + File.separator + "artifacts" +
-                         File.separator + "ESB" + File.separator + "mailTransport" + File.separator +
-                         "mailTransportReceiver" + File.separator + "axis2.xml"));
         MailToTransportUtil.readXMLforEmailCredentials();
 
     }
 
     @AfterTest(alwaysRun = true)
     public void cleanUp() throws Exception {
-        if (serverConfigurationManager != null) {
-            serverConfigurationManager.restoreToLastConfiguration();
-        }
     }
 }

@@ -33,15 +33,10 @@ import java.io.File;
 import static org.testng.Assert.assertTrue;
 
 public class PassthroughTransportHttpProxyTestCase extends ESBIntegrationTest {
-    private ServerConfigurationManager serverConfigurationManager;
     private LogViewerClient logViewer;
 
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
-        super.init();
-        serverConfigurationManager = new ServerConfigurationManager(new AutomationContext("ESB", TestUserMode.SUPER_TENANT_ADMIN));
-        serverConfigurationManager.applyConfiguration(new File(getESBResourceLocation() + File.separator
-                                                               + "passthru" + File.separator + "transport" + File.separator + "httpproxy" + File.separator + "axis2.xml"));
         super.init();
         loadESBConfigurationFromClasspath("/artifacts/ESB/passthru/transport/httpproxy/httpProxy.xml");
         logViewer = new LogViewerClient(contextUrls.getBackEndUrl(), getSessionCookie());
@@ -72,6 +67,5 @@ public class PassthroughTransportHttpProxyTestCase extends ESBIntegrationTest {
     @AfterClass(alwaysRun = true)
     public void destroy() throws Exception {
         super.cleanup();
-        serverConfigurationManager.restoreToLastConfiguration();
     }
 }

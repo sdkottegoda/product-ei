@@ -32,6 +32,7 @@ import org.wso2.carbon.automation.engine.context.AutomationContext;
 import org.wso2.carbon.automation.engine.context.TestUserMode;
 import org.wso2.carbon.automation.engine.frameworkutils.FrameworkPathUtil;
 import org.wso2.carbon.base.CarbonBaseUtils;
+import org.wso2.carbon.esb.nhttp.transport.test.util.ESBNhttpIntegrationTest;
 import org.wso2.esb.integration.common.utils.common.ServerConfigurationManager;
 import org.wso2.esb.integration.common.utils.ESBIntegrationTest;
 
@@ -45,19 +46,15 @@ import static java.io.File.separator;
  * https://wso2.org/jira/browse/ESBJAVA-2183 - need to be fixed to complete test case.
  */
 
-public class MessageWithoutContentTypeTestCase extends ESBIntegrationTest {
+public class MessageWithoutContentTypeTestCase extends ESBNhttpIntegrationTest {
 
     private static final Log log = LogFactory.getLog(MessageWithoutContentTypeTestCase.class);
-    private ServerConfigurationManager serverConfigurationManager;
 
     @BeforeClass(alwaysRun = true)
     public void init() throws Exception {
         super.init();
-        AutomationContext autoCtx = new AutomationContext("ESB", TestUserMode.SUPER_TENANT_ADMIN);
-        serverConfigurationManager = new ServerConfigurationManager(autoCtx);
-        serverConfigurationManager.applyConfiguration(
+        applyConfiguration(
                 new File(getClass().getResource("/artifacts/ESB/nhttp/transport/axis2.xml").getPath()));
-        super.init();
         loadESBConfigurationFromClasspath("/artifacts/ESB/synapseconfig/messagewithoutcontent/synapse.xml");
     }
 
@@ -111,11 +108,6 @@ public class MessageWithoutContentTypeTestCase extends ESBIntegrationTest {
 
     @AfterClass(alwaysRun = true)
     public void close() throws Exception {
-        try {
-            super.cleanup();
-        } finally {
-            serverConfigurationManager.restoreToLastConfiguration();
-            serverConfigurationManager = null;
-        }
+        super.cleanup();
     }
 }
